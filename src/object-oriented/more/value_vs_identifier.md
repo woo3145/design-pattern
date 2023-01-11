@@ -1,4 +1,4 @@
-[👈 이전으로](../../README.md)
+[👈 이전으로](../README.md)
 
 #### Value Context 🆚 Identifier Context
 
