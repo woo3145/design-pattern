@@ -3,7 +3,6 @@
 #### Polymorphism (다형성)
 
 - 다형성 속성
-
   - substitution 대체 가능성
     자식이 부모를 대체가능
   - internal identity 내적 일관성
@@ -43,13 +42,14 @@ worker.print(); // hard working
 // 내적일관성 달성 - 프로토타입 체이닝으로 가장가까운 것부터 탐색
 객체에서 속성을 탐색 : 자기자신 -> __proto__ -> __proto__.__proto__ -> ... 방식으로 탐색함
 
+
+// 대체 가능성 달성
 ++ instanceof 동작방식
 worker instanceof HardWorker;
 
 __proto__이 null일때까지 체이닝을 타고가며 __proto__(부모 프로토타입 객체)의 constructor가
 찾는값과 일치하는지 확인한다.
 
-// 대체 가능성 달성
 worker.__proto__.constructor === Worker; // false
 worker.__proto__.__proto__.constructor === Worker; // true
 
