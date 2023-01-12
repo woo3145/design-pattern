@@ -4,7 +4,45 @@
 
 #### DI (Dependency Injection)의존성 주입
 
-- IoC (Inversion of Control) 제어역전
+- 어떠한 경우에도 다운캐스팅 금지
+- 폴리모피즘(추상 인터페이스) 사용
+  -> 어떤 객체를 직접인식하지 말고 추상인터페이스를 인식하도록 하고 다운 캐스팅 금지
+- DI는 IoC (Inversion of Control) 제어역전의 일부임
+
+```js
+class Worker {
+  run() {
+    console.log('working');
+  }
+  print() {
+    this.run();
+  }
+}
+class HardWorker extends Worker {
+  run() {
+    console.log('hardWorking');
+  }
+}
+```
+
+```js
+class Manager {
+  #workers;
+  constructor(...workers) {
+    if (workers.every((w) => w instanceof Worker)) this.#workers = workers;
+    else throw 'invalid workers';
+  }
+  doWork() {
+    this.#workers.forEach((w) => w.run());
+  }
+}
+const manager = new Manager(new Worker(), new HardWorker());
+manager.doWork();
+// 의존성을 구상클래스 HardWorker가 아닌 추상클래스 Worker에 두고 있으므로
+// run()을 수정하고 싶은 새 구상클래스를 만들 수 있다 -> 확장에 열려있다.(Open)
+// 확장할 때마다 Manager 클래스는 수정하지 않아도 된다 (Close)
+// -> OCP를 달성하면 자연스럽게 의존성 역전이 달성된다.
+```
 
 #### Dry (Don't Repeat Yourself) 중복방지
 
