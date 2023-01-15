@@ -65,8 +65,6 @@ class BinderItem {
   }
 }
 
-type EventKey = keyof GlobalEventHandlers;
-
 // 바인더의 역할
 // 스캐너가 #items에 넣어준 viewmodel key들을 돌면서 render에 들어온 뷰모델을 매핑시켜준다.
 class Binder {
@@ -85,12 +83,15 @@ class Binder {
       const vm = viewmodel.views[item.viewmodel] as ViewModel;
       const el = item.el;
 
+      // Styles 적용
       Object.keys(vm.styles).forEach((key) => {
         el.style.setProperty(key, vm.styles[key]);
       });
+      // Attribute 적용
       Object.keys(vm.attributes).forEach((key) => {
         el.setAttribute(key, vm.attributes[key]);
       });
+      // Property 적용
       Object.keys(vm.properties).forEach((key) => {
         if (key === 'innerHTML') {
           el.innerHTML = vm.properties[key];
@@ -98,6 +99,7 @@ class Binder {
           el.setAttribute(`data-${key}`, vm.properties[key]);
         }
       });
+      // Event 등록
       Object.keys(vm.events).forEach((key) => {
         if (!key.startsWith('on')) throw '이벤트 핸들러가 아닙니다.';
         const eventType = key.slice(2).toLowerCase();
@@ -143,7 +145,7 @@ body.innerHTML = `<section id="target" data-viewmodel="wrapper">
         <section data-viewmodel="contents"></section>
     </section>`;
 
-// 스캐너에 넣어줄 뷰모델 값
+// 바인더와 매핑 시킬 뷰모델
 const viewmodel = ViewModel.get({
   views: {
     wrapper: ViewModel.get({

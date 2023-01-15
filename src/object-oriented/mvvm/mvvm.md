@@ -22,7 +22,7 @@
 
 ViewModel이 뷰에 그림을 그리는 로직을 Binder 위임함 -> 그림을 그린다는 제어를 역전시킴
 
-- MVVM을 많이 쓰는 이유 - 뷰를 그리는 제어구문이 바인더에 집중되어있기 때문
+- MVVM을 많이 쓰는 이유 - 뷰를 그리는 제어구문이 바인더에 집중되어있기 때문에 제어역전이 됨
 
 - Vue, Angular 방식 - 있는 뷰를 스캔함
 
@@ -36,6 +36,8 @@ ViewModel이 뷰에 그림을 그리는 로직을 Binder 위임함 -> 그림을 
 #### 구현
 
 View Model <- Binder <- Scanner -> HTMLElement
+
+- 스캐너를 통한 Binder객체 생성과 ViewModel 매핑 [👨‍💻 mvvm_1.ts](./mvvm_1.ts)
 
 ##### 코드를 분리하는 첫번째 원칙
 
